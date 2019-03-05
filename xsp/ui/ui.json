@@ -1,0 +1,30 @@
+{
+	"style" : "default",
+	"config" : "save_跳一跳助手.dat",
+	"width" : 540,
+	"height" : 960,
+	"cancelscroll" : true,
+	"countdown" : 10,
+	"cancelname" : "取消",
+	"okname" : "确定",
+	"views" : [
+		{
+	        "align" : "left",
+	        "color" : "0,0,0",
+	        "size" : 20,
+	        "text" : "最高分：",
+	        "bg" : "0,0,225",
+	        "type" : "Label"
+        },
+		{
+	        "id" : "Edit1",
+	        "align" : "left",
+	        "color" : "0,0,0",
+	        "kbtype" : "number",
+	        "prompt" : "这是提示文本",
+	        "size" : 25,
+	        "text" : "这是预输入文本",
+	        "type" : "Edit"
+        }
+	]
+}
