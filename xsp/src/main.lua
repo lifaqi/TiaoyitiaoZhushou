@@ -1,9 +1,11 @@
 
 require 'utils'
-require "multscreen.MultScreenSupport";
 
+init("0",0)
 
 mSleep(3000)
+
+--showUI("ui.json")
 
 screenWidth,screenHeight = getScreenSize()
 
@@ -12,14 +14,13 @@ startY = 0
 
 initX = 0
 initXmax = 0
-initY = 800
+initY = 810 / 2160 * screenHeight
 
 
 function judgeColor(x, y)
 	
 	r,g,b = getColorRGB(x, y)
-	r0,g0,b0 = getColorRGB(923, 810)
-	
+	r0,g0,b0 = getColorRGB(screenWidth - 77, initY)
 	if math.abs(r0 - r) < 20 and math.abs(g0 - g) < 20 and math.abs(b0 - b) < 20 then
 		return false
 	else
@@ -50,7 +51,7 @@ function getStartPoint()
 	y = initY
 	keepScreen(true);
 	while true do
-		if x >= screenWidth then
+		if x >= screenWidth - 1 then
 			x = initX
 			y = y + 1
 			if y > screenHeight then
@@ -74,30 +75,32 @@ function getStartPoint()
 				sysLog('开始：x:' .. x ..';y:' .. y)
 				keepScreen(false);
 				return x, y
+			else
+				x = x + 2
 			end
-			x = x + 2
 		end
 	end
 end
 
 
 function getTargetCoorde()
+	
 	x1, y1 = findMultiColorInRegionFuzzy(0x363c66,"-28|-5|0x2e2d50,-35|-9|0x2b2b49,24|-8|0x39365d,33|-12|0x393651,0|-72|0x3e384a,0|-105|0x554d7d,-2|-152|0x413d59,-1|-170|0x534c7b,15|-170|0x9289b1,-17|-170|0x3d3f5d,2|-183|0x50436b", 95, 0, 0, 1079, 2159, 0, 0)
 	if x1 > -1 then
 		startX = x1
 		startY = y1
 	end
 	
-	centerX = screenWidth / 2
+	centerX = (screenWidth - 1) / 2
 	if startX < centerX then -- 起跳点在左边，说明目标在右边
 		initX = centerX
-		initXmax = screenWidth
+		initXmax = screenWidth - 1
 	else -- -- 起跳点在右边，说明目标在左边
 		initX  = 20
 		initXmax = centerX
 	end
 	
-	x0, y0 = getStartPoint()
+	x0, y0 = getStartPoint()	
 	
 	-- 往下循环
 	
@@ -108,7 +111,7 @@ function getTargetCoorde()
 	isFinish = false
 	keepScreen(true);
 	while true do
-		if x >= screenWidth then -- 说明靠近最右边，以此为水平中心
+		if x >= initXmax then -- 说明靠近最右边，以此为水平中心
 			targetY = y
 			isFinish = true
 			break
@@ -138,23 +141,7 @@ function getTargetCoorde()
 	end
 end
 
-
-init("0",0)
-
---showUI("ui.json")
-
-
-exeNum = 0
 while true do
-	exeNum = exeNum + 1
-	if exeNum == 15 then
-		exeNum = 0
-		
-		mSleep(10000)
-		
-		lua_restart()
-		
-	end
 	getTargetCoorde()
 end
 
