@@ -118,8 +118,8 @@ function getTargetCoorde()
 		else
 			if not judgeColor(x, y) then
 				for i = 1, 8 do
-					if judgeColor(x, y + i) then
-						y = y + i
+					if judgeColor(x, y + 1) then
+						y = y + 1
 						break
 					end
 					if i == 8 then
@@ -141,7 +141,7 @@ function getTargetCoorde()
 	end
 end
 
-while true do
+while true do	
 	getTargetCoorde()
 end
 

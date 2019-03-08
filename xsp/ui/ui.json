@@ -12,7 +12,7 @@
 	        "align" : "left",
 	        "color" : "0,0,0",
 	        "size" : 20,
-	        "text" : "最高分：",
+	        "text" : "设置最高分：",
 	        "bg" : "0,0,225",
 	        "type" : "Label"
         },
